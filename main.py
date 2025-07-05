@@ -5,9 +5,16 @@ main.py — AI Article Bot (OpenAI v1)
 • Não usa mais a classe OpenAI (que causava conflito)
 """
 
-import os
-from fastapi import FastAPI, HTTPException
 import openai
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# geração do artigo
+response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": prompt}],
+    max_tokens=600,
+    temperature=0.7,
+)
 
 # ─────────────────────────────────────────────────────────────
 # Chave da OpenAI
