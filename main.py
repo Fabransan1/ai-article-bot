@@ -1,20 +1,13 @@
 """
-main.py — AI Article Bot (OpenAI v1)
-────────────────────────────────────
-• Gera artigo via openai.chat.completions.create
-• Não usa mais a classe OpenAI (que causava conflito)
+main.py — AI Article Bot (compatível com openai==0.28.1)
+────────────────────────────────────────────────────────
+• Gera artigo via openai.ChatCompletion.create
+• Endpoint GET /publish-now/?niche=  devolve título + conteúdo
 """
 
+import os
+from fastapi import FastAPI, HTTPException
 import openai
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
-# geração do artigo
-response = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[{"role": "user", "content": prompt}],
-    max_tokens=600,
-    temperature=0.7,
-)
 
 # ─────────────────────────────────────────────────────────────
 # Chave da OpenAI
@@ -25,18 +18,18 @@ if not OPENAI_API_KEY:
 
 openai.api_key = OPENAI_API_KEY
 
-app = FastAPI(title="AI Article Bot – OpenAI v1")
+app = FastAPI(title="AI Article Bot – openai 0.28")
 
 # ─────────────────────────────────────────────────────────────
 # Função para gerar artigo
 # ─────────────────────────────────────────────────────────────
 def generate_article(niche: str) -> dict:
     prompt = (
-        f"Você é um redator profissional. Escreva um artigo de blog (~400 palavras) "
+        f"Você é um redator profissional. Escreva um artigo (~400 palavras) "
         f"em português sobre '{niche}'. Use título H1 e subtítulos."
     )
     try:
-        resp = openai.chat.completions.create(
+        resp = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=600,
