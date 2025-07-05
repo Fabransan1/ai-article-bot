@@ -34,6 +34,14 @@ def publish_to_wordpress(title: str, content: str):
     r = requests.post(url, headers=headers, data=data, timeout=30)
     r.raise_for_status()
     return r.json()
+# ────────────────────────────────────────────────
+# Permite chamar a publicação via GET no navegador
+@app.get("/publish-now/")
+def publish_now_get(niche: str = "finanças"):
+    title, content = generate_article(niche)
+    publish_to_wordpress(title, content)
+    return {"published": True, "niche": niche}
+# ────────────────────────────────────────────────
 
 def job(niche: str="finanças"):
     try:
