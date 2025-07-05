@@ -18,6 +18,7 @@ if not GEMINI_API_KEY:
 
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("models/gemini-1.5-pro-latest")
+
 app = FastAPI(title="AI Article Bot – Gemini Pro")
 
 # ─────────────────────────────────────────────────────────────
