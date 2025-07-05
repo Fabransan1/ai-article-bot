@@ -17,7 +17,7 @@ if not GEMINI_API_KEY:
     raise RuntimeError("GEMINI_API_KEY não definida no Environment.")
 
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("models/gemini-pro")
+model = genai.GenerativeModel("gemini-pro")
 
 app = FastAPI(title="AI Article Bot – Gemini Pro")
 
